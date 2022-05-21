@@ -4,6 +4,10 @@
     $database = new Database();
     $conn = $database->create();
 
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Authorization");
+    header('Content-Type: application/json');
+
 
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         if(isset($_GET['date'])){
