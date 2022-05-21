@@ -13,7 +13,7 @@ class Database{
 
     public function create(){
         try{
-            $this->conn = new PDO("mysql:dbname=$database;host=$host", $user, $password);
+            $this->conn = new PDO("mysql:dbname=;host=$host", $user, $password);
         }catch(PDOException $e){
             echo $e->getMessage();
         }
