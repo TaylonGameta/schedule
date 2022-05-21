@@ -3,10 +3,7 @@
     $user = $_ENV["DB_USER"];
     $password = $_ENV["DB_PASSWORD"];
     $host = $_ENV["DB_HOST"];
-    $database = $_ENV["DB_DATABASE"];
-
-    $url = "mysql:dbname=$database;host=$host";
-    echo $url;
+    $database = $_ENV["DB_NAME"];
 
 class Database{
     public $conn;
