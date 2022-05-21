@@ -1,6 +1,6 @@
 ## API dos agendamentos
 
-[Acesse aqui](scheduleday.herokuapp.com)
+[Acesse aqui](https://scheduleday.herokuapp.com)
 
 ### Request
 `POST /schedule.php`
