@@ -55,7 +55,8 @@
             ':hour' => $data->hour
         ]);
 
-        $stmt = $conn->prepare("select * from schedule_hour
+        $stmt = $conn->prepare("select schedule_hour.id, schedule_hour.hour,
+        schedule_hour.schedules, schedule_date.date from schedule_hour
         left join schedule_date on schedule_hour.date_id = schedule_date.id
         where schedule_date.date = :date AND schedule_hour.hour = :hour");
         $stmt->execute([

@@ -13,7 +13,7 @@
         if(isset($_GET['date'])){
             $date = $_GET['date']; 
 
-            $stmt = $conn->prepare("select * from schedule_hour
+            $stmt = $conn->prepare("select schedule_hour.id, schedule_hour.hour, schedule_date.date from schedule_hour
             left join schedule_date on schedule_date.id = schedule_hour.date_id
             where schedule_date.date = :date;
             ");

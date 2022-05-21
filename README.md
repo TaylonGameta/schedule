@@ -1,16 +1,27 @@
 ## API dos agendamentos
 
-[Acesse aqui](https://scheduleday.herokuapp.com)
+[https://scheduleday.herokuapp.com](https://scheduleday.herokuapp.com)
+
+
+# Documentação
+
+## Pegar uma lista de dias
 
 ### Request
-`POST /schedule.php`
-    curl -i -H 'Accept: application/json' -d 'date=2022-10-10&hour=10' http://localhost:7000/schedule
 
-### Request
-`GET /get-hours.php?date={some_date}`
-    curl -i -H 'Accept: application/json' http://localhost:7000/get-hours.php?date=some_date
+`GET /get-days.php?start_date={date}&end_date={date}`
 
-### Request
-`GET /get-days.php?start_date={some_date}&end_date={some_date}`
-    curl -i -H 'Accept: application/json' http://localhost:7000/get-days.php?start_date={some_date}&end_date={some_date}
+    curl -i -H 'Accept: application/json' https://scheduleday.herokuapp.com/get-days.php?start_date={date}&end_date={date}
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    []
+
 
