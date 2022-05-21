@@ -1,6 +1,9 @@
 <?php
     include_once "database.php";
 
+    $MAX_HOURS = 3;
+    $MAX_SCHEDULES = 4;
+
     $database = new Database();
     $conn = $database->create();
 
@@ -63,16 +66,16 @@
         if($stmt->rowCount() > 0){
             $jsonResult = $stmt->fetch(PDO::FETCH_ASSOC);
             
-    
             $stmt = $conn->prepare("select * from schedule_hour
             left join schedule_date on schedule_hour.date_id = schedule_date.id
-            where schedule_hour.schedules > 3 and schedule_date.date = :date");
+            where schedule_hour.schedules > :max_schedules and schedule_date.date = :date");
            
             $stmt->execute([
                 ':date' => $data->date,
+                ':max_schedules' => $MAX_SCHEDULES
             ]);
 
-            if($stmt->rowCount() > 3){
+            if($stmt->rowCount() > $MAX_HOURS){
 
                 $stmt = $conn->prepare("update schedule_date
                 set schedule_date.is_full = 1

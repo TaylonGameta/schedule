@@ -15,7 +15,8 @@
             $endDate = $_GET['end_date']; 
 
             $stmt = $conn->prepare("select * from schedule_date
-            where schedule_date.date between :start and :end
+            where schedule_date.date between :start and :end 
+            and is_full = 1
             group by schedule_date.date
             ");
 
