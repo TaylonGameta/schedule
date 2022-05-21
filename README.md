@@ -55,3 +55,29 @@
     ]
 
 
+## Pegar uma lista de horarios
+
+### Request
+
+`GET /get-hours.php?date=2022-05-01`
+
+    curl -i -H 'Accept: application/json' https://scheduleday.herokuapp.com/get-hours.php?date=2022-05-01
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    [
+        {
+		    "id": "0396c83f0196c3316283dcfe3484edf9",
+		    "hour": "9",
+		    "date": "2022-06-21"
+	    }
+    ]
+
+
