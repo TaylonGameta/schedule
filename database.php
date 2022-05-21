@@ -1,25 +1,40 @@
-<?php 
+<?php
 
-    $user = $_ENV["DB_USER"];
-    $password = $_ENV["DB_PASSWORD"];
-    $host = $_ENV["DB_HOST"];
-    $database = $_ENV["DB_NAME"];
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $db = substr($url["path"], 1);
 
-    $url = "mysql:dbname=$database;host=$host";
-    echo $url;
-
-class Database{
-    public $conn;
-
-    public function create(){
-        try{
-            $this->conn = new PDO("mysql:dbname=;host=$host", $user, $password);
-        }catch(PDOException $e){
-            echo $e->getMessage();
-        }
-
-        return $this->conn;
+    if(isset($url["host"]) && isset($url["user"]) && isset($url["pass"])){
+        $server = $url["host"];
+        $username = $url["user"];
+        $password = $url["pass"];
+    }else{
+        $username = "root";
+        $password = "";
     }
-}
 
+    if(isset($db) && isset($server)){
+        $dsn = "mysql:dbname=$db;host=$server";
+    }else{
+        $dsn = "mysql:dbname=schedule;host=localhost";
+    }
+  
+
+    //echo $pdo;
+
+    class Database{
+        public $conn;
+
+        public function create(){
+
+            global $url, $dsn, $server, $db, $username, $password;
+
+            try{
+                $this->conn = new PDO($dsn, $username, $password);
+            }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+
+            return $this->conn;
+        }
+    }
 ?>
