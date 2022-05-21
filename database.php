@@ -5,6 +5,8 @@
     $host = $_ENV["DB_HOST"];
     $database = $_ENV["DB_DATABASE"];
 
+    $url = "mysql:dbname=$database;host=$host";
+    echo $url;
 
 class Database{
     public $conn;
