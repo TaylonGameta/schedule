@@ -2,6 +2,10 @@
     include_once "database.php";
     include_once "models/Schedule.php";
 
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Authorization");
+    header('Content-Type: application/json');
+
     $MAX_HOURS = 3;
     $MAX_SCHEDULES = 4;
 
