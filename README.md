@@ -13,14 +13,6 @@
 
     curl -i -H 'Accept: application/json' -d 'date=2022-06-21&hour=11' https://scheduleday.herokuapp.com/createSchedule.php
 
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
-
     {
         "passengers": 3,
         "going": {
@@ -35,18 +27,16 @@
 
 ### Response
 
-    HTTP/1.1 201 Created
+    HTTP/1.1 200 Ok
     Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
+    Status: 200 Ok
     Connection: close
     Content-Type: application/json
     Location: /thing/1
     Content-Length: 36
 
     {
-		"id": "019ca7f0d63d2a15e61d3667c08c119d",
-		"date": "2022-06-21",
-		"is_full": "1"
+		
 	}
 
 ## Pegar uma lista de dias
