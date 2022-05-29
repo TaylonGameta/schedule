@@ -13,6 +13,26 @@
 
     curl -i -H 'Accept: application/json' -d 'date=2022-06-21&hour=11' https://scheduleday.herokuapp.com/schedule.php
 
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 201 Created
+    Connection: close
+    Content-Type: application/json
+    Location: /thing/1
+    Content-Length: 36
+
+    {
+        "passengers": 3,
+        "going": {
+            "date": "2022-07-03",
+            "hour": "12"
+        },
+        "return": {
+            "date": "2022-07-04",
+            "hour": "11"
+        }
+    }
+
 ### Response
 
     HTTP/1.1 201 Created
