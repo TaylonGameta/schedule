@@ -16,17 +16,37 @@
         $data = json_decode($json);
 
         if(isset($data->return)){
+           
             $schedule->passengers = $data->passengers;
 
             $schedule->date = $data->going->date;
             $schedule->hour = $data->going->hour;
 
+            $schedule->name = $data->name;
+            $schedule->email = $data->email;
+            $schedule->phone = $data->phone;
+            $schedule->flightNumber = $data->flightNumber;
+            $schedule->value = $data->value;
+            $schedule->roundTrip = 1;
+            $schedule->place = $data->going->place;
+            $schedule->route = $data->going->route;
             $schedule->create();
+
+            $schedule->passengers = $data->passengers;
 
             $schedule->date = $data->return->date;
             $schedule->hour = $data->return->hour;
 
+            $schedule->name = $data->name;
+            $schedule->email = $data->email;
+            $schedule->phone = $data->phone;
+            $schedule->flightNumber = $data->flightNumber;
+            $schedule->value = $data->value;
+            $schedule->roundTrip = 1;
+            $schedule->place = $data->return->place;
+            $schedule->route = $data->return->route;
             $schedule->create();
+
         }else{
 
             $schedule->passengers = $data->passengers;
@@ -34,6 +54,14 @@
             $schedule->date = $data->going->date;
             $schedule->hour = $data->going->hour;
 
+            $schedule->name = $data->name;
+            $schedule->email = $data->email;
+            $schedule->phone = $data->phone;
+            $schedule->flightNumber = $data->flightNumber;
+            $schedule->value = $data->value;
+            $schedule->roundTrip = 0;
+            $schedule->place = $data->going->place;
+            $schedule->route = $data->going->route;
             $schedule->create();
 
         }

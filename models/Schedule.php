@@ -8,6 +8,15 @@
         public $date;
         public $hour;
 
+        public $route;
+        public $place;
+        public $value;
+        public $email;
+        public $name;
+        public $phone;
+        public $flightNumber;
+        public $roundTrip;
+
         private $conn;
 
         private $MAX_HOURS = 3;
@@ -22,6 +31,9 @@
 
             $dateId = md5(uniqid(""));
             $hourId = md5(uniqid(""));
+            $infoId = md5(uniqid(""));
+
+            $existentHourId;
             
 
             //criando uma data pra ida
@@ -33,7 +45,7 @@
 
             
             //verificando se existe um horário com a data de ida escolhida
-            $stmt = $this->conn->prepare("select * from schedule_hour
+            $stmt = $this->conn->prepare("select schedule_hour.id from schedule_hour
             left join schedule_date on schedule_date.id = schedule_hour.date_id
             where schedule_hour.hour = :hour and schedule_date.date = :date");
 
@@ -44,9 +56,11 @@
 
             //se nao existir o else vai criar um se existir o codigo segue e o update da tabela sera feito
             if($stmt->rowCount() > 0){
+                $jsonResult = $stmt->fetch(PDO::FETCH_ASSOC);
+                $existentHourId = $jsonResult['id'];
                 //nao existe
             }else{
-                $stmt = $this->conn->prepare("insert into schedule_hour(id, hour, date_id, schedules) values(:id, :hour, :date_id, 0)");
+                $stmt = $this->conn->prepare("insert into schedule_hour(id, hour, date_id, passengers) values(:id, :hour, :date_id, 0)");
                 $stmt->execute([
                     ':id' => $hourId,
                     ':hour' => $this->hour,
@@ -54,9 +68,29 @@
                 ]);
             }
 
+            if(isset($existentHourId)){
+                $hourId = $existentHourId;
+            }
+
+            //salvar informacoes do agendamento
+            $stmt = $this->conn->prepare("insert into schedule_info(id, hour_id, name, phone, flightNumber, value, place, email, route, roundTrip)
+            values(:id, :hour_id, :name, :phone, :flightNumber, :value, :place, :email, :route, :roundTrip)");
+            $stmt->execute([
+                ':id' => $infoId,
+                ':hour_id' => $hourId,
+                ':name' => $this->name,
+                ':phone' => $this->phone,
+                ':flightNumber' => $this->flightNumber,
+                ':value' => $this->value,
+                ':place' => $this->place,
+                ':email' => $this->email,
+                ':route' => $this->route,
+                ':roundTrip' => $this->roundTrip
+            ]);
+
             $stmt = $this->conn->prepare("update schedule_hour
             left join schedule_date on schedule_hour.date_id = schedule_date.id
-            set schedule_hour.schedules = schedule_hour.schedules + :passengers
+            set schedule_hour.passengers = schedule_hour.passengers + :passengers
             where schedule_date.date = :date AND schedule_hour.hour = :hour");
             $stmt->execute([
                 ':date' => $this->date,
@@ -65,7 +99,7 @@
             ]);
 
             $stmt = $this->conn->prepare("select schedule_hour.id, schedule_hour.hour,
-            schedule_hour.schedules, schedule_date.date from schedule_hour
+            schedule_hour.passengers, schedule_date.date from schedule_hour
             left join schedule_date on schedule_hour.date_id = schedule_date.id
             where schedule_date.date = :date AND schedule_hour.hour = :hour");
             $stmt->execute([
@@ -78,7 +112,7 @@
                 
                 $stmt = $this->conn->prepare("select * from schedule_hour
                 left join schedule_date on schedule_hour.date_id = schedule_date.id
-                where schedule_hour.schedules > :max_schedules and schedule_date.date = :date");
+                where schedule_hour.passengers > :max_schedules and schedule_date.date = :date");
             
                 $stmt->execute([
                     ':date' => $this->date,

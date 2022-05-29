@@ -16,14 +16,14 @@
         if(isset($_GET['date'])){
             $date = $_GET['date']; 
 
-            $stmt = $conn->prepare("select schedule_hour.id, schedule_hour.hour, schedule_hour.passengers, schedule_date.date from schedule_hour
+            $stmt = $conn->prepare("select schedule_date.date, schedule_hour.passengers, schedule_hour.hour from schedule_info
+            left join schedule_hour on schedule_hour.id = schedule_info.hour_id
             left join schedule_date on schedule_date.id = schedule_hour.date_id
-            where schedule_date.date = :date and schedule_hour.passengers > :max_schedules
+            where schedule_info.roundTrip = 0 and schedule_date.date = :date;
             ");
 
             $stmt->execute([
-                ':date' => $date,
-                ':max_schedules' => $MAX_SCHEDULES
+                ':date' => $date
             ]);
 
             if($stmt->rowCount() > 0){
