@@ -14,14 +14,23 @@
     curl -i -H 'Accept: application/json' -d 'date=2022-06-21&hour=11' https://scheduleday.herokuapp.com/createSchedule.php
 
     {
-        "passengers": 3,
+        "passengers": 4,
+        "name": "Jorge",
+        "email": "jorge@email.com",
+        "phone": "238723823",
+        "flightNumber": "12123",
+        "value": "10.00",
         "going": {
             "date": "2022-07-03",
-            "hour": "12"
+            "hour": "14",
+            "place": "porto",
+            "route": "braga"
         },
         "return": {
             "date": "2022-07-04",
-            "hour": "11"
+            "hour": "11",
+            "place": "braga",
+            "route": "porto"
         }
     }
 
@@ -90,4 +99,29 @@
 	    }
     ]
 
+
+## Pegar uma lista de horarios sem volta
+
+### Request
+
+`GET /get-hours-no-comeback.php?date=2022-05-01`
+
+    curl -i -H 'Accept: application/json' https://scheduleday.herokuapp.com/get-hours-no-comeback.php?date=2022-05-01
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    [
+        {
+            "date": "2022-07-06",
+            "passengers": "4",
+            "hour": "14"
+        }
+    ]
 
