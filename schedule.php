@@ -8,7 +8,6 @@
     $conn = $database->create();
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
         $currentId = md5(uniqid(""));
         $hourId = md5(uniqid(""));
         $dayId= md5(uniqid(""));
