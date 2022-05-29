@@ -20,6 +20,8 @@
         $data = json_decode($json);
 
         if(isset($data->return)){
+
+            $response;
            
             $schedule->passengers = $data->passengers;
 
@@ -34,8 +36,10 @@
             $schedule->roundTrip = 1;
             $schedule->place = $data->going->place;
             $schedule->route = $data->going->route;
-            $schedule->create();
+            $goingObj = $schedule->create();
 
+            $response['going'] = $goingObj;
+            
             $schedule->passengers = $data->passengers;
 
             $schedule->date = $data->return->date;
@@ -49,7 +53,11 @@
             $schedule->roundTrip = 1;
             $schedule->place = $data->return->place;
             $schedule->route = $data->return->route;
-            $schedule->create();
+
+            $returnObj = $schedule->create();
+            $response['return'] = $returnObj;
+
+            echo json_encode($response);
 
         }else{
 
@@ -66,8 +74,8 @@
             $schedule->roundTrip = 0;
             $schedule->place = $data->going->place;
             $schedule->route = $data->going->route;
-            $schedule->create();
-
+            $response = $schedule->create();
+            echo json_encode($response);
         }
 
     }

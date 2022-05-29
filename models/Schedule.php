@@ -1,7 +1,5 @@
 <?php
 
-    
-
     class Schedule{
         public $passengers;
 
@@ -72,6 +70,31 @@
                 $hourId = $existentHourId;
             }
 
+            //verificar se os passageiros cabem
+            $stmt = $this->conn->prepare("select * from schedule_hour where id = :hour_id");
+            $stmt->execute([
+                ':hour_id' => $hourId
+            ]);
+            $jsonResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($this->passengers + $jsonResult['passengers'] > $this->MAX_SCHEDULES){
+                http_response_code(400);
+                $msg["error"] = "passengers amount exceeded";
+                echo json_encode($msg);
+                exit();
+            }
+
+            //update do numero de passageiros
+            $stmt = $this->conn->prepare("update schedule_hour
+            left join schedule_date on schedule_hour.date_id = schedule_date.id
+            set schedule_hour.passengers = schedule_hour.passengers + :passengers
+            where schedule_date.date = :date AND schedule_hour.hour = :hour");
+            $stmt->execute([
+                ':date' => $this->date,
+                ':hour' => $this->hour,
+                ':passengers' => $this->passengers
+            ]);
+
             //salvar informacoes do agendamento
             $stmt = $this->conn->prepare("insert into schedule_info(id, hour_id, name, phone, flightNumber, value, place, email, route, roundTrip)
             values(:id, :hour_id, :name, :phone, :flightNumber, :value, :place, :email, :route, :roundTrip)");
@@ -88,16 +111,8 @@
                 ':roundTrip' => $this->roundTrip
             ]);
 
-            $stmt = $this->conn->prepare("update schedule_hour
-            left join schedule_date on schedule_hour.date_id = schedule_date.id
-            set schedule_hour.passengers = schedule_hour.passengers + :passengers
-            where schedule_date.date = :date AND schedule_hour.hour = :hour");
-            $stmt->execute([
-                ':date' => $this->date,
-                ':hour' => $this->hour,
-                ':passengers' => $this->passengers
-            ]);
 
+            //pegar o horario que foi criado
             $stmt = $this->conn->prepare("select schedule_hour.id, schedule_hour.hour,
             schedule_hour.passengers, schedule_date.date from schedule_hour
             left join schedule_date on schedule_hour.date_id = schedule_date.id
@@ -109,7 +124,8 @@
 
             if($stmt->rowCount() > 0){
                 $jsonResult = $stmt->fetch(PDO::FETCH_ASSOC);
-                
+
+                //ver se o horario esta lotado
                 $stmt = $this->conn->prepare("select * from schedule_hour
                 left join schedule_date on schedule_hour.date_id = schedule_date.id
                 where schedule_hour.passengers > :max_schedules and schedule_date.date = :date");
@@ -119,6 +135,7 @@
                     ':max_schedules' => $this->MAX_SCHEDULES
                 ]);
 
+                //ve se o dia esta lotado
                 if($stmt->rowCount() > $this->MAX_HOURS){
 
                     $stmt = $this->conn->prepare("update schedule_date
@@ -130,8 +147,17 @@
                     ]);
                 }
 
-                
             }
+
+            //fazer o select das informacoes pra retornar no json
+            $stmt = $this->conn->prepare("select * from schedule_info where id = :info_id");
+            $stmt->execute([
+                ':info_id' => $infoId
+            ]);
+
+            $jsonResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $jsonResult;
 
             
         }
