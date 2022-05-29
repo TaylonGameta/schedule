@@ -9,9 +9,9 @@
 
 ### Request
 
-`POST /schedule.php`
+`POST /createSchedule.php`
 
-    curl -i -H 'Accept: application/json' -d 'date=2022-06-21&hour=11' https://scheduleday.herokuapp.com/schedule.php
+    curl -i -H 'Accept: application/json' -d 'date=2022-06-21&hour=11' https://scheduleday.herokuapp.com/createSchedule.php
 
     HTTP/1.1 201 Created
     Date: Thu, 24 Feb 2011 12:36:30 GMT
