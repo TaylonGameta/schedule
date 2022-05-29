@@ -45,8 +45,31 @@
     Content-Length: 36
 
     {
-		
-	}
+        "going": {
+            "id": "b1b5a78b9cb5de985aeb51ca008bdb03",
+            "hour_id": "b01592e954b97b0ae9522f62db3e8cf4",
+            "name": "Vinicius Rosa",
+            "phone": "+55 (28) 988145869",
+            "flightNumber": "378219",
+            "value": "35",
+            "place": "sdfsdfsdf",
+            "roundTrip": "1",
+            "email": "bakavini99@gmail.com",
+            "route": "asdasdasd"
+        },
+        "return": {
+            "id": "4bd51036699394778c62b70bd99b2de5",
+            "hour_id": "2a3b08b316f676f67e86147c4c44f93d",
+            "name": "Vinicius Rosa",
+            "phone": "+55 (28) 988145869",
+            "flightNumber": "378219",
+            "value": "35",
+            "place": "Atilio Vivacqua, ES BRA",
+            "roundTrip": "1",
+            "email": "bakavini99@gmail.com",
+            "route": "Aeroporto Lisboa\/Centro - Ericeira"
+        }
+    }
 
 ## Pegar uma lista de dias
 
