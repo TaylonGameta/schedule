@@ -1,4 +1,7 @@
 <?php
+
+   require("<sendgrid-php/sendgrid-php.php");
+
    $email = new \SendGrid\Mail\Mail(); 
    $email->setFrom("gtataylon@gmail.com", "Example User");
    $email->setSubject("Sending with SendGrid is Fun");
