@@ -14,6 +14,8 @@
         public $phone;
         public $flightNumber;
         public $roundTrip;
+        public $paymentMethod;
+        public $shareTranfer;
 
         private $conn;
 
@@ -104,8 +106,8 @@
             ]);
 
             //salvar informacoes do agendamento
-            $stmt = $this->conn->prepare("insert into schedule_info(id, hour_id, name, phone, flightNumber, value, place, email, route, roundTrip)
-            values(:id, :hour_id, :name, :phone, :flightNumber, :value, :place, :email, :route, :roundTrip)");
+            $stmt = $this->conn->prepare("insert into schedule_info(id, hour_id, name, phone, flightNumber, value, place, email, route, roundTrip, shareTransfer, paymentMethod)
+            values(:id, :hour_id, :name, :phone, :flightNumber, :value, :place, :email, :route, :roundTrip, :shareTransfer, :paymentMethod)");
             $stmt->execute([
                 ':id' => $infoId,
                 ':hour_id' => $hourId,
@@ -116,7 +118,9 @@
                 ':place' => $this->place,
                 ':email' => $this->email,
                 ':route' => $this->route,
-                ':roundTrip' => $this->roundTrip
+                ':roundTrip' => $this->roundTrip,
+                ':shareTransfer' => $this->shareTransfer,
+                ':paymentMethod' => $this->paymentMethod
             ]);
 
 

@@ -34,6 +34,8 @@
             $schedule->flightNumber = $data->flightNumber;
             $schedule->value = $data->value;
             $schedule->roundTrip = 1;
+            $schedule->shareTransfer = $data->shareTransfer;
+            $schedule->paymentMethod = $data->paymentMethod;
             $schedule->place = $data->going->place;
             $schedule->route = $data->going->route;
             $goingObj = $schedule->create();
@@ -51,7 +53,7 @@
                 <p>Email: $schedule->email</p>
                 <p>Flight Number: $schedule->flightNumber</p>
                 <p>Whatsapp: $schedule->phone<p/>";
-            $schedule->sendEmail($emailMessage);
+            #$schedule->sendEmail($emailMessage);
             $schedule->passengers = $data->passengers;
 
             $schedule->date = $data->return->date;
@@ -63,6 +65,8 @@
             $schedule->flightNumber = $data->flightNumber;
             $schedule->value = $data->value;
             $schedule->roundTrip = 1;
+            $schedule->shareTransfer = $data->shareTransfer;
+            $schedule->paymentMethod = $data->paymentMethod;
             $schedule->place = $data->return->place;
             $schedule->route = $data->return->route;
 
@@ -80,7 +84,7 @@
                 <p>Email: $schedule->email</p>
                 <p>Flight Number: $schedule->flightNumber</p>
                 <p>Whatsapp: $schedule->phone<p/>";
-            $schedule->sendEmail($emailMessage);
+            #$schedule->sendEmail($emailMessage);
             echo json_encode($response);
 
         }else{
@@ -96,6 +100,8 @@
             $schedule->flightNumber = $data->flightNumber;
             $schedule->value = $data->value;
             $schedule->roundTrip = 0;
+            $schedule->shareTransfer = $data->sharedTransfer;
+            $schedule->paymentMethod = $data->paymentMethod;
             $schedule->place = $data->going->place;
             $schedule->route = $data->going->route;
             $response = $schedule->create();

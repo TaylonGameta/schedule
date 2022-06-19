@@ -15,7 +15,7 @@
     if(isset($db) && isset($server)){
         $dsn = "mysql:dbname=$db;host=$server";
     }else{
-        $dsn = "mysql:dbname=u699633739_easy_transfer;host=localhost";
+        $dsn = "mysql:dbname=schedule;host=localhost";
     }
   
 
@@ -29,7 +29,7 @@
             global $url, $dsn, $server, $db, $username, $password;
 
             try{
-                $this->conn = new PDO($dsn, $password, $username);
+                $this->conn = new PDO($dsn, $username, $password);
             }catch(PDOException $e){
                 echo $e->getMessage();
             }
