@@ -1,4 +1,3 @@
 <?php
-    echo "im alive";
-      
+    echo "The email message was sent.";
 ?>

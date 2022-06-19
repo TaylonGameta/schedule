@@ -17,14 +17,22 @@
 
         private $conn;
 
-        private $MAX_HOURS = 3;
-        private $MAX_SCHEDULES = 4;
+        private $MAX_HOURS = 48;
+        private $MAX_SCHEDULES = 8;
 
 
         function __construct($db){
             $this->conn = $db;
         }
-
+         public function sendEmail($message){
+            $from = "no-reply@easytransfer.pt";
+            $to = "easytransferpt@gmail.com";
+            $subject = "Novo Agendamento Transfer - EasyTransfer";
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\b";
+            $headers .= 'From: easytransfer' . "\r\n";
+            mail($to,$subject,$message, $headers);
+        }
         public function create(){
 
             $dateId = md5(uniqid(""));

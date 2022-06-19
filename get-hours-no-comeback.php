@@ -1,8 +1,8 @@
 <?php
     include_once "database.php";
 
-    $MAX_HOURS = 3;
-    $MAX_SCHEDULES = 4;
+    $MAX_HOURS = 48;
+    $MAX_SCHEDULES = 8;
 
     $database = new Database();
     $conn = $database->create();

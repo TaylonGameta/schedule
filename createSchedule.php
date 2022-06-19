@@ -39,7 +39,19 @@
             $goingObj = $schedule->create();
 
             $response['going'] = $goingObj;
-            
+            $emailMessage = "
+                <p><b>Agendamento</b></p>
+                <p>Rota: $schedule->route</p>
+                <p>Data e hora: $schedule->date - $schedule->hour</p>
+                <p>Local de Partida: $schedule->place</p>
+                <p>Valor: $schedule->value </p>
+                <p>Qtd passageiros: $schedule->passengers </p>
+                <p><b>Dados do Cliente</b></p>
+                <p>Nome: $schedule->name</p>
+                <p>Email: $schedule->email</p>
+                <p>Flight Number: $schedule->flightNumber</p>
+                <p>Whatsapp: $schedule->phone<p/>";
+            $schedule->sendEmail($emailMessage);
             $schedule->passengers = $data->passengers;
 
             $schedule->date = $data->return->date;
@@ -56,7 +68,19 @@
 
             $returnObj = $schedule->create();
             $response['return'] = $returnObj;
-
+            $emailMessage = "
+                <p><b>Agendamento</b></p>
+                <p>Rota: $schedule->route</p>
+                <p>Data e hora: $schedule->date - $schedule->hour</p>
+                <p>Local de Partida: $schedule->place</p>
+                <p>Valor: $schedule->value </p>
+                <p>Qtd passageiros: $schedule->passengers </p>
+                <p><b>Dados do Cliente</b></p>
+                <p>Nome: $schedule->name</p>
+                <p>Email: $schedule->email</p>
+                <p>Flight Number: $schedule->flightNumber</p>
+                <p>Whatsapp: $schedule->phone<p/>";
+            $schedule->sendEmail($emailMessage);
             echo json_encode($response);
 
         }else{
@@ -75,6 +99,19 @@
             $schedule->place = $data->going->place;
             $schedule->route = $data->going->route;
             $response = $schedule->create();
+            $emailMessage = "
+                <p><b>Agendamento</b></p>
+                <p>Rota: $schedule->route</p>
+                <p>Data e hora: $schedule->date - $schedule->hour</p>
+                <p>Local de Partida: $schedule->place</p>
+                <p>Valor: $schedule->value </p>
+                <p>Qtd passageiros: $schedule->passengers </p>
+                <p><b>Dados do Cliente</b></p>
+                <p>Nome: $schedule->name</p>
+                <p>Email: $schedule->email</p>
+                <p>Flight Number: $schedule->flightNumber</p>
+                <p>Whatsapp: $schedule->phone<p/>";
+            $schedule->sendEmail($emailMessage);
             echo json_encode($response);
         }
 
