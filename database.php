@@ -29,7 +29,7 @@
             global $url, $dsn, $server, $db, $username, $password;
 
             try{
-                $this->conn = new PDO($dsn, "senhasegura", "Easyroot1");
+                $this->conn = new PDO($dsn, $password, $username);
             }catch(PDOException $e){
                 echo $e->getMessage();
             }
